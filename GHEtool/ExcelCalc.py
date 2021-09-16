@@ -3,8 +3,12 @@ import GHEtool as ghe
 import xlwings as xw
 import numpy as np
 
-if __name__ == "__main__":
-    sheet = xw.sheets[0]
+def main():
+    try:
+        sheet = xw.sheets[0]
+    except:
+        print ("Please open the excel to run this function")
+        return
     
     # relevant borefield data for the calculations
     data = {"H": sheet['bh_depth'].value,           # depth (m)
@@ -79,3 +83,6 @@ if __name__ == "__main__":
     # print gives the array of montly tempartures for peak cooling without showing the plot
     borefield.calculateTemperatures(depth=90)
     #print (borefield.resultsPeakCooling)
+    
+if __name__ == "__main__":
+    main()
