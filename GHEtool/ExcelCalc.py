@@ -10,6 +10,12 @@ def main():
         print ("Please open the excel to run this function")
         return
     
+    try:
+        sheet['bh_depth'].value
+    except:
+        print ("You don't seem to have opened the right excel. Make sure you are using the GHETool.xlsx")
+        return
+    
     # relevant borefield data for the calculations
     data = {"H": sheet['bh_depth'].value,           # depth (m)
             "B": sheet['bh_spacing'].value,           # borehole spacing (m)
@@ -41,8 +47,6 @@ def main():
     annualHeatingLoad = HeatingDemand.sum()
     annualCoolingLoad = CoolingDemand.sum()
     
-    
-    
     # percentage of annual load per month (15.5% for January ...)
     #print ("Monthly heating demand:")
     #print (HeatingDemand / HeatingDemand.sum())
@@ -70,7 +74,7 @@ def main():
     print ("Imbalance: %i kWh"%borefield.imbalance) # print imbalance
 
     # size borefield
-    depth= borefield.size(100)
+    depth = borefield.size(100)
     print ("Optimized depth: %.1f m"%depth)
     sheet['results_depth'].value = depth
 
